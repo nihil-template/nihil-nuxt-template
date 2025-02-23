@@ -8,6 +8,7 @@ export function useSiteMeta(meta: SiteMetadata) {
     ? `${siteConfig.url}${meta.image.link}`
     : `${siteConfig.url}${siteConfig.image.link}`;
   const siteImageAlt = meta.image?.alt || siteConfig.image.alt;
+  const siteType = meta.type || siteConfig.type;
 
   useSeoMeta({
     title: `${meta.title} - ${siteConfig.title}`,
@@ -18,16 +19,17 @@ export function useSiteMeta(meta: SiteMetadata) {
     ogDescription: siteDescription,
     ogUrl: siteUrl,
     ogImage: siteImageLink,
-    ogType: "website",
+    ogType: siteType,
     ogLocale: "ko_KR",
     twitterCard: "summary_large_image",
     twitterTitle: meta.title,
     twitterDescription: siteDescription,
     twitterImage: siteImageLink,
-    twitterSite: siteConfig.url,
+    twitterSite: siteUrl,
     twitterCreator: siteConfig.author.name,
   });
   useHead({
+    meta: [{ name: "twitter:url", content: siteUrl }],
     link: [{ rel: "canonical", href: siteUrl }],
   });
 }

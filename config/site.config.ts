@@ -1,7 +1,7 @@
 export const siteConfig: SiteConfig = {
-  title: "랜덤 키워드",
-  description: "창작자를 위한 랜덤 키워드 생성기",
-  keywords: "creator, keyword, random, generator, 키워드, 랜덤, 생성기, 창작자",
+  title: "사이트 이름",
+  description: "사이트 설명",
+  keywords: "",
   author: {
     name: "NIHILncunia",
     url: "https://github.com/NIHILncunia",

@@ -1,9 +1,16 @@
 import tailwindcss from "@tailwindcss/vite";
+import { siteConfig } from "./config/site.config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
     head: {
+      meta: [
+        {
+          name: "version",
+          content: siteConfig.version,
+        },
+      ],
       link: [
         {
           rel: "stylesheet",
