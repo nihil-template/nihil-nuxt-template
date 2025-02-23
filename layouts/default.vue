@@ -6,11 +6,10 @@
 </template>
 
 <script setup>
-import { siteConfig } from "~/config";
-
 useSeoMeta({
   title: `홈 - ${siteConfig.title}`,
   description: siteConfig.description,
+  keywords: siteConfig.keywords,
   ogTitle: "홈",
   ogSiteName: siteConfig.title,
   ogDescription: siteConfig.description,
@@ -25,6 +24,9 @@ useSeoMeta({
   twitterUrl: siteConfig.url,
   twitterSite: siteConfig.url,
   twitterCreator: siteConfig.author.name,
+});
+useHead({
+  link: [{ rel: "canonical", href: siteConfig.url }],
 });
 </script>
 
