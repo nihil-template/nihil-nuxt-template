@@ -1,9 +1,7 @@
-export default defineEventHandler(
-  async (event) => {
-    const body = await readBody(event);
-    
-    console.log(body);
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event);
 
-    return 'Hello World Post'
-  }
-);
+  console.log(body);
+
+  return 'Hello World Post';
+});

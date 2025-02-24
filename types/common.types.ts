@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "axios";
+import { HttpStatusCode } from 'axios';
 
 export type ApiResponse<T> = {
   resData: T;
@@ -11,7 +11,7 @@ export type ApiError = {
 };
 
 export interface CreateResponse<T> {
-  type: "success" | "error";
+  type: 'success' | 'error';
   resData: T;
   message: string;
   status: keyof typeof HttpStatusCode;
@@ -23,7 +23,7 @@ export interface SiteMetadata {
   description?: string;
   author?: string;
   keywords?: string;
-  type?: "website" | "article";
+  type?: 'website' | 'article';
   tags?: string;
   section?: string;
   created?: string;
@@ -38,7 +38,7 @@ export interface SiteConfig {
   title: string;
   description: string;
   url: string;
-  type: "website" | "article";
+  type: 'website' | 'article';
   image: {
     link: string;
     alt: string;
