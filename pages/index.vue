@@ -20,6 +20,8 @@
   const decrease = () => {
     number.value--;
   };
+
+  const patchRes = useUpdate('/', {});
 </script>
 
 <style lang="scss" scoped></style>

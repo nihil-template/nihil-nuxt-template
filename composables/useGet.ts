@@ -1,5 +1,5 @@
-export async function useGet<T>(url: string) {
-  const res = await useFetch<T>(url);
+export async function useGet<T>(name: string, url: string) {
+  const res = await useAsyncData(name, () => $fetch<T>(url));
 
   return res;
 }
