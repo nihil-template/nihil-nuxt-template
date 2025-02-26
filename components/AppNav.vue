@@ -3,7 +3,7 @@
     <ul>
       <li>
         <NuxtLink to="/">홈</NuxtLink>
-        <NuxtLink to="/test">테스트</NuxtLink>
+        <NuxtLink to="/keywords/category/asdasdfas">키워드</NuxtLink>
       </li>
     </ul>
   </nav>

@@ -4,7 +4,6 @@ import { siteConfig } from './config/site.config';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    baseURL: siteConfig.isBaseUrl,
     head: {
       meta: [
         {
@@ -25,17 +24,17 @@ export default defineNuxtConfig({
     },
   },
 
-  devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  devtools: { enabled: true, },
+  css: [ '~/assets/css/main.css', ],
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [ tailwindcss(), ],
   },
 
-  modules: ['@pinia/nuxt'],
+  modules: [ '@pinia/nuxt', ],
 
   imports: {
-    dirs: ['types', 'config', 'utils'],
+    dirs: [ 'types', 'config', 'utils', ],
   },
 
   devServer: {

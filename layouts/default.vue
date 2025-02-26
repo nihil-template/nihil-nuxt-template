@@ -4,7 +4,7 @@
   <AppContent>
     <AppSide />
     <AppMain>
-      <slot></slot>
+      <slot />
     </AppMain>
   </AppContent>
   <AppFooter />
@@ -30,8 +30,8 @@
     twitterCreator: siteConfig.author.name,
   });
   useHead({
-    meta: [{ name: 'twitter:url', content: siteConfig.url }],
-    link: [{ rel: 'canonical', href: siteConfig.url }],
+    meta: [ { name: 'twitter:url', content: siteConfig.url, }, ],
+    link: [ { rel: 'canonical', href: siteConfig.url, }, ],
   });
 </script>
 

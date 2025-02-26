@@ -53,7 +53,7 @@ export class DateTools {
 
   static getDiff(
     baseDate: string | number | Date,
-    diffDate: string | number | Date,
+    diffDate: string | number | Date
   ) {
     return dayjs(baseDate)
       .tz('Asia/Seoul')

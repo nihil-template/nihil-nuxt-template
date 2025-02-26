@@ -27,7 +27,7 @@ export function useSiteMeta(meta: SiteMetadata) {
     twitterCreator: siteConfig.author.name,
   });
   useHead({
-    meta: [{ name: 'twitter:url', content: siteUrl }],
-    link: [{ rel: 'canonical', href: siteUrl }],
+    meta: [ { name: 'twitter:url', content: siteUrl, }, ],
+    link: [ { rel: 'canonical', href: siteUrl, }, ],
   });
 }

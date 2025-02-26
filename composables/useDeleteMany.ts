@@ -7,7 +7,7 @@ export async function useDeleteMany<T>(name: string, url: string, ids: Ids) {
       body: {
         ids,
       },
-    }),
+    })
   );
 
   return res;
