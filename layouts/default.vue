@@ -4,7 +4,7 @@
   <AppContent>
     <AppSide />
     <AppMain>
-      <slot />
+      <slot></slot>
     </AppMain>
   </AppContent>
   <AppFooter />
@@ -19,13 +19,13 @@
     ogSiteName: siteConfig.title,
     ogDescription: siteConfig.description,
     ogUrl: siteConfig.url,
-    ogImage: `${siteConfig.url}/opengraph-image.png`,
+    ogImage: `${siteConfig.url}${siteConfig.image.link}`,
     ogType: 'website',
     ogLocale: 'ko_KR',
     twitterCard: 'summary_large_image',
     twitterTitle: '홈',
     twitterDescription: siteConfig.description,
-    twitterImage: `${siteConfig.url}/twitter-image.png`,
+    twitterImage: `${siteConfig.url}${siteConfig.image.twitterImage}`,
     twitterSite: siteConfig.url,
     twitterCreator: siteConfig.author.name,
   });

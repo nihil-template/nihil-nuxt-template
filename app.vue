@@ -5,5 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtPage } from "#components";
+import { NuxtPage } from '#components';
 </script>
+

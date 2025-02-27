@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <CmsContent />
 </template>
 
 <script setup lang="ts"></script>

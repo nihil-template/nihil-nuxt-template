@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   modules: [ '@pinia/nuxt', ],
 
   imports: {
-    dirs: [ 'types', 'config', 'utils', ],
+    dirs: [ 'types/*.ts', 'types/**/*.ts', 'config/**', 'utils/**', 'stores/**', ],
   },
 
   devServer: {

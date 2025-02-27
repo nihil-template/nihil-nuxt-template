@@ -5,7 +5,6 @@ export function useSiteMeta(meta: SiteMetadata) {
   const siteImageLink = meta.image
     ? `${siteConfig.url}${meta.image.link}`
     : `${siteConfig.url}${siteConfig.image.link}`;
-  const siteImageAlt = meta.image?.alt || siteConfig.image.alt;
   const siteType = meta.type || siteConfig.type;
 
   useSeoMeta({

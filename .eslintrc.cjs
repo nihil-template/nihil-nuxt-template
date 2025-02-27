@@ -33,6 +33,8 @@ module.exports = {
   ],
   rules: {
     // 일반 규칙
+    'prefer-template': 'warn',
+    'template-curly-spacing': 'warn',
     'no-console': 'off',
     'no-unused-vars': 'off',
     'no-unexpected-multiline': 'off',
@@ -99,12 +101,14 @@ module.exports = {
     // vue 규칙
     'vue/multi-word-component-names': 'off',
     'vue/html-self-closing': 'off',
+    'vue/script-indent': [ 'warn', 2, { 'baseIndent': 1, }, ],
   },
   overrides: [
     {
       files: [ '*.vue', ],
       rules: {
         'no-undef': 'off',
+        indent: 'off',
       },
     },
   ],
