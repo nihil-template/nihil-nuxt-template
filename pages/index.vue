@@ -7,8 +7,6 @@
     title: '홈',
     url: '/',
   });
-
-  const { data: categories, } = await useGet('categories', '/categories');
 </script>
 
 <style lang="scss" scoped></style>
