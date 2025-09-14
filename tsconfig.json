@@ -1,0 +1,29 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "files": [],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@repo/config/*": ["../../packages/config/dist/*"],
+      "@repo/dto/*": ["../../packages/dto/dist/*"],
+      "@repo/drizzle/*": ["../../packages/drizzle/dist/*"],
+      "@repo/type/*": ["../../packages/type/dist/*"],
+      "@repo/prisma": ["../../packages/prisma/src/generated/client"]
+    }
+  },
+  "references": [
+    {
+      "path": "./.nuxt/tsconfig.app.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.server.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.shared.json"
+    },
+    {
+      "path": "./.nuxt/tsconfig.node.json"
+    }
+  ]
+}
