@@ -1,4 +1,4 @@
-import type { UserInfoType } from '@repo/drizzle';
+import type { UserInfoType } from '@/schemas/user.schema';
 import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
 

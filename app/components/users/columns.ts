@@ -1,4 +1,4 @@
-import type { UserInfoType } from '@repo/drizzle';
+import type { UserInfoType } from '@/schemas/user.schema';
 
 export interface TableColumn<T> {
   key: keyof T | string;

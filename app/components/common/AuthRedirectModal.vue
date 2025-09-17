@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import { Button } from '~/components/common/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '~/components/common/ui/dialog';
 import { cn } from '~/libs/cn';
 
 const props = defineProps<{
@@ -34,28 +25,35 @@ function onClickGoProfile() {
 </script>
 
 <template>
-  <Dialog
-    :open='props.isOpen'
-    @update:open="(value) => emit('update:isOpen', value)"
+  <div
+    v-if="props.isOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    @click="emit('update:isOpen', false)"
   >
-    <DialogContent :class="cn('sm:max-w-md')">
-      <DialogHeader>
-        <DialogTitle>{{ props.title }}</DialogTitle>
-        <DialogDescription>{{ props.description }}</DialogDescription>
-      </DialogHeader>
-      <DialogFooter class='flex gap-2 !justify-center items-center'>
-        <Button
-          variant='outline'
-          @click='onClickGoHome'
+    <div
+      :class="cn('bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4')"
+      @click.stop
+    >
+      <div class="mb-4">
+        <h2 class="text-lg font-semibold mb-2">{{ props.title }}</h2>
+        <p class="text-gray-600">{{ props.description }}</p>
+      </div>
+      <div class="flex gap-2 justify-center">
+        <button
+          class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+          @click="onClickGoHome"
         >
           홈으로
-        </Button>
-        <Button @click='onClickGoProfile'>
+        </button>
+        <button
+          class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+          @click="onClickGoProfile"
+        >
           마이페이지
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>

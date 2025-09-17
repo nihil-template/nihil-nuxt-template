@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { updateUserSchema, type UpdateUserType } from '@repo/drizzle/schema';
+import { updateUserSchema, type UpdateUserType } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useForm } from 'vee-validate';

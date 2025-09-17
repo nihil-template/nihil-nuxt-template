@@ -1,5 +1,5 @@
 // ~/composables/common/api/utils.ts
-import type { ResponseType } from '@repo/drizzle';
+import type { ResponseType } from '@/schemas/response.schema';
 import type { MaybeRefOrGetter } from 'vue';
 
 import { useCacheStore } from '~/entities/common/cache.store';

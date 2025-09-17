@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { signInSchema } from '@repo/drizzle/schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { storeToRefs } from 'pinia';
 import { useForm } from 'vee-validate';
@@ -7,15 +6,17 @@ import { useForm } from 'vee-validate';
 import { useAuthCardStore } from '~/entities/auth/auth-card.store';
 import { useAuthStore } from '~/entities/auth/auth.store';
 
+import { signInSchema } from '@/schemas/user.schema';
+
 const authCardStore = useAuthCardStore();
-const { setAuthCardHeader, } = authCardStore;
+const { setAuthCardHeader } = authCardStore;
 
 // Pinia 스토어에서 직접 세션 상태를 가져옵니다.
 const authStore = useAuthStore();
-const { session, } = storeToRefs(authStore);
+const { session } = storeToRefs(authStore);
 
 const formSchema = toTypedSchema(signInSchema);
-const { handleSubmit, isSubmitting, errors, validate, } = useForm({
+const { handleSubmit, isSubmitting, errors, validate } = useForm({
   validationSchema: formSchema,
   initialValues: {
     emlAddr: '',
@@ -24,7 +25,7 @@ const { handleSubmit, isSubmitting, errors, validate, } = useForm({
 });
 
 // 로그인 여부 판단에 더 이상 useGetSession을 사용하지 않습니다.
-const { mutate: signIn, pending: isSigningIn, } = useSignIn();
+const { mutate: signIn, pending: isSigningIn } = useSignIn();
 
 const showModal = ref(false);
 
@@ -46,7 +47,7 @@ watch(session, (newSession) => {
   if (newSession) {
     showModal.value = true;
   }
-}, { immediate: true, });
+}, { immediate: true });
 </script>
 
 <template>

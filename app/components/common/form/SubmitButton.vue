@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Button } from '~/components/common/ui/button';
 import { cn } from '~/libs/cn';
 
 interface Props {
@@ -21,11 +20,11 @@ defineSlots<{
 </script>
 
 <template>
-  <Button
+  <button
     :type='type'
     :disabled='disabled || loading'
-    :class="cn('w-full min-h-[40px] cursor-pointer mt-6', props.class)"
+    :class="cn('w-full min-h-[40px] cursor-pointer mt-6 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed', props.class)"
   >
     <slot />
-  </Button>
+  </button>
 </template>

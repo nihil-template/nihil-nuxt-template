@@ -1,4 +1,5 @@
-import type { ListType, UserInfoType, SearchUserType } from '@repo/drizzle';
+import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
+import type { ListType } from '@/schemas/response.schema';
 import { toast } from 'vue-sonner';
 
 import { useUsersStore } from '~/entities/users/users.store';

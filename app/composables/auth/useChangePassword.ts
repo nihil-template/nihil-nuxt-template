@@ -1,4 +1,4 @@
-import type { ChangePasswordType, UserInfoType } from '@repo/drizzle';
+import type { ChangePasswordType, UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { useAuthStore } from '~/entities/auth/auth.store';

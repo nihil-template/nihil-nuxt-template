@@ -1,4 +1,4 @@
-import type { CreateUserType, UserInfoType } from '@repo/drizzle';
+import type { CreateUserType, UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { usePost } from '~/composables/common/api/useAPIMutation';

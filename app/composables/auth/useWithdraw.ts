@@ -1,4 +1,4 @@
-import type { WithdrawType, UserInfoType } from '@repo/drizzle';
+import type { WithdrawType, UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { useAuthStore } from '~/entities/auth/auth.store';

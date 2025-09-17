@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { withdrawSchema, type WithdrawType } from '@repo/drizzle/schema';
+import { withdrawSchema, type WithdrawType } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useForm } from 'vee-validate';

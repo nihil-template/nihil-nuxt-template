@@ -1,9 +1,10 @@
-import { webConfig } from '@repo/config/web.config';
-import type { SuccessPayload } from '@repo/type';
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
+import { config as siteConfig } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
+
 let axiosInstance: AxiosInstance | null = null;
-const baseURL = `${webConfig.apiRoute}`;
+const baseURL = `${siteConfig.api.route}`;
 const config: AxiosRequestConfig = {
   withCredentials: true,
   baseURL,
@@ -18,30 +19,30 @@ function getInstance(): AxiosInstance {
 }
 
 async function get<T>(restApi: string, cfg?: AxiosRequestConfig) {
-  return getInstance().get<SuccessPayload<T>>(restApi, cfg);
+  return getInstance().get<ResponseType<T>>(restApi, cfg);
 }
 
 async function post<T, P>(restApi: string, data: P, cfg?: AxiosRequestConfig) {
-  return getInstance().post<T, AxiosResponse<SuccessPayload<T>, P>, P>(restApi, data, cfg);
+  return getInstance().post<T, AxiosResponse<ResponseType<T>, P>, P>(restApi, data, cfg);
 }
 
 async function postWithFile<T, P>(restApi: string, data: P, cfg?: AxiosRequestConfig) {
-  return getInstance().post<T, AxiosResponse<SuccessPayload<T>, P>, P>(restApi, data, {
+  return getInstance().post<T, AxiosResponse<ResponseType<T>, P>, P>(restApi, data, {
     ...cfg,
     headers: { 'Content-Type': 'multipart/form-data', },
   });
 }
 
 async function patch<T, P>(restApi: string, data: P, cfg?: AxiosRequestConfig) {
-  return getInstance().patch<T, AxiosResponse<SuccessPayload<T>, P>, P>(restApi, data, cfg);
+  return getInstance().patch<T, AxiosResponse<ResponseType<T>, P>, P>(restApi, data, cfg);
 }
 
 async function put<T, P>(restApi: string, data: P, cfg?: AxiosRequestConfig) {
-  return getInstance().put<T, AxiosResponse<SuccessPayload<T>, P>, P>(restApi, data, cfg);
+  return getInstance().put<T, AxiosResponse<ResponseType<T>, P>, P>(restApi, data, cfg);
 }
 
 async function del<T>(restApi: string, cfg?: AxiosRequestConfig) {
-  return getInstance().delete<SuccessPayload<T>>(restApi, cfg);
+  return getInstance().delete<ResponseType<T>>(restApi, cfg);
 }
 
 async function getQuery<D>(url: string) {

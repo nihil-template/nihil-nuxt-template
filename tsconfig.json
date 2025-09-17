@@ -3,13 +3,9 @@
   "files": [],
   "compilerOptions": {
     "baseUrl": ".",
+    "skipLibCheck": true,
     "paths": {
-      "~/*": ["./app/*"],
-      "@repo/config/*": ["../../packages/config/dist/*"],
-      "@repo/dto/*": ["../../packages/dto/dist/*"],
-      "@repo/drizzle/*": ["../../packages/drizzle/dist/*"],
-      "@repo/type/*": ["../../packages/type/dist/*"],
-      "@repo/prisma": ["../../packages/prisma/src/generated/client"]
+      "~/*": ["./app/*"]
     }
   },
   "references": [

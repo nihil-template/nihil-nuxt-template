@@ -1,119 +1,111 @@
-# Nuxt.js 앱 - 자동 임포트 가이드
+# Nuxt 4 사용자 인증 템플릿
 
-## 개요
+사용자 인증, 관리자 관리, 프로필 관리 기능을 포함한 Nuxt 4 기반 웹 애플리케이션 템플릿입니다.
 
-이 Nuxt.js 앱은 엔티티 기반 아키텍처를 사용하며, 훅, 스토어, 쿼리 키 등을 자동으로 임포트할 수 있도록 설정되어 있습니다.
+## 프로젝트 개요
 
-## 자동 임포트 설정
+이 프로젝트는 **실제 운영 가능한 웹 애플리케이션**을 빠르게 구축할 수 있도록 설계된 템플릿입니다.
+완전한 사용자 인증 시스템과 관리자 기능, 그리고 확장 가능한 엔티티 기반 아키텍처를 제공합니다.
 
-### nuxt.config.ts 설정
+## 주요 기능
 
-```typescript
-imports: {
-  dirs: [
-    'stores',
-    'entities/*/hooks',
-    'entities/*/stores',
-    'entities/*/keys',
-  ],
-},
+### 🔐 인증 시스템
+- 회원가입/로그인/로그아웃
+- 비밀번호 찾기/재설정
+- 세션 관리 (60분 TTL)
+- 토큰 자동 재발급
+
+### 👤 사용자 관리
+- 프로필 조회/수정
+- 비밀번호 변경
+- 회원탈퇴
+- 사용자 목록 조회
+
+### 👨‍💼 관리자 기능
+- 관리자 회원가입
+- 관리자 대시보드
+- 사용자 관리
+
+## 개발 가이드
+
+### 새 기능 개발하기
+
+1. **페이지 추가**
+   ```
+   app/pages/(도메인)/경로.vue
+   ```
+
+2. **컴포넌트 추가**
+   ```
+   app/components/도메인/ComponentName.vue
+   ```
+
+3. **API 연동**
+   ```
+   app/composables/도메인/useActionName.ts
+   ```
+
+4. **상태 관리**
+   ```
+   app/entities/도메인/domain.store.ts
+   ```
+
+5. **폼 검증**
+   ```
+   app/schemas/entity.schema.ts
+   ```
+
+### 예시: 새 도메인 추가
+
+"products" 도메인을 추가한다면:
+
+```
+app/
+├── pages/(products)/products/
+├── components/products/
+├── composables/products/
+├── entities/products/
+└── schemas/products.schema.ts
 ```
 
-### 자동 임포트 대상
+## 기술 스택
 
-- **stores**: `~/stores/` 폴더의 모든 스토어
-- **entities/\*/hooks**: 각 엔티티의 훅 폴더
-- **entities/\*/stores**: 각 엔티티의 스토어 폴더 (향후 확장용)
-- **entities/\*/keys**: 각 엔티티의 쿼리 키
+- **프레임워크**: Nuxt 4 + Vue 3.5
+- **언어**: TypeScript
+- **상태관리**: Pinia + 캐시 시스템
+- **API**: TanStack Query
+- **UI**: Nuxt UI 3 + Reka UI
+- **검증**: Zod + vee-validate
+- **패키지매니저**: pnpm
 
-## 사용법
+## 개발 명령어
 
-### 1. 훅 자동 임포트
+```bash
+# 개발 서버 시작
+pnpm dev
 
-```typescript
-// 별도 import 없이 바로 사용 가능
-const { session, loading } = useGetSession();
-const { mutate: signIn, isPending } = useSignIn();
-const { mutate: signUp, isPending } = useSignUp();
+# 빌드
+pnpm build
+
+# 코드 품질 검사
+pnpm lint
+pnpm check-types
 ```
 
-### 2. 스토어 자동 임포트
-
-```typescript
-// 별도 import 없이 바로 사용 가능
-const authStore = useAuthStore();
-const { setAuthCardHeader } = authStore;
-```
-
-### 3. 쿼리 키 자동 임포트
-
-```typescript
-// 별도 import 없이 바로 사용 가능
-const key = authKeys.session();
-const listKey = authKeys.list(params);
-```
-
-## 엔티티 구조
+## 프로젝트 구조
 
 ```
-app/entities/
-├── auth/
-│   ├── hooks/
-│   │   ├── use-get-session.ts
-│   │   ├── use-sign-in.ts
-│   │   ├── use-sign-up.ts
-│   │   └── index.ts
-│   └── auth.keys.ts
-└── common/
-    ├── hooks/
-    │   ├── api/
-    │   │   ├── use-get.ts
-    │   │   ├── use-post.ts
-    │   │   └── ...
-    │   └── index.ts
-    └── common.types.ts
+app/
+├── pages/           # 라우트 페이지
+│   ├── (auth)/      # 인증 관련 페이지
+│   ├── (admin)/     # 관리자 페이지
+│   ├── (profile)/   # 프로필 페이지
+│   └── (users)/     # 사용자 관리 페이지
+├── components/      # Vue 컴포넌트
+├── composables/     # 컴포지션 함수
+├── entities/        # 도메인별 비즈니스 로직
+├── layouts/         # 레이아웃 컴포넌트
+└── schemas/         # Zod 검증 스키마
 ```
 
-## 주의사항
-
-1. **명시적 export**: 각 폴더의 `index.ts`에서 사용할 훅들을 명시적으로 export해야 합니다.
-2. **타입 안전성**: TypeScript 타입 정의를 통해 자동 완성과 타입 체크를 지원합니다.
-3. **네이밍 컨벤션**: 훅 이름은 `use`로 시작하고 camelCase를 사용합니다.
-
-## 예시
-
-### 컴포넌트에서 사용
-
-```vue
-<script setup lang="ts">
-// 별도 import 없이 자동으로 사용 가능
-const { session, loading } = useGetSession();
-const { mutate: signIn, isPending } = useSignIn({
-  onSuccess: () => {
-    navigateTo('/');
-  },
-  onError: (error) => {
-    console.error('로그인 실패:', error);
-  },
-});
-</script>
-```
-
-### 스토어에서 사용
-
-```typescript
-// 별도 import 없이 자동으로 사용 가능
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    session: null,
-    authCardHeader: {},
-  }),
-  actions: {
-    setSession(session) {
-      this.session = session;
-    },
-  },
-});
-```
-
-이 설정을 통해 개발자는 별도의 import 문 없이도 엔티티의 훅과 스토어를 바로 사용할 수 있어 개발 생산성이 크게 향상됩니다.
+이 템플릿을 사용하면 복잡한 설정 없이 바로 비즈니스 로직 개발에 집중할 수 있습니다.

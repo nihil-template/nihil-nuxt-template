@@ -23,7 +23,7 @@ const cssVariants = cva(
       variant: 'default',
     },
     compoundVariants: [],
-  }
+  },
 );
 
 const props = withDefaults(defineProps<Props>(), {

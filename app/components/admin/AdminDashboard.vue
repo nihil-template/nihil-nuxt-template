@@ -16,7 +16,7 @@ const cssVariants = cva(
     variants: {},
     defaultVariants: {},
     compoundVariants: [],
-  }
+  },
 );
 
 const props = withDefaults(defineProps<Props>(), {

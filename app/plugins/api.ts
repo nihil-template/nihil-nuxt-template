@@ -1,9 +1,9 @@
-import { webConfig } from '@repo/config/web.config';
+import { config } from '@/config/config';
 import { defineNuxtPlugin } from 'nuxt/app';
 
 export default defineNuxtPlugin(() => {
   const api = $fetch.create({
-    baseURL: webConfig.apiRoute,
+    baseURL: config.api.route,
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
-import { webConfig } from '@repo/config/web.config';
-import type { ResponseType } from '@repo/drizzle';
+import { config } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
 import { DateTime } from 'luxon';
 
 import { buildURL, makeKey } from '~/composables/common/api/utils';
@@ -19,7 +19,7 @@ export const useCacheStore = defineStore('cache', () => {
   function get(urlSegments: (string | number)[] | string, params?: Record<string, any>) {
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     const entry = cache.value[key];
     if (!entry) return undefined;
@@ -36,7 +36,7 @@ export const useCacheStore = defineStore('cache', () => {
   function getEntry(urlSegments: (string | number)[] | string, params?: Record<string, any>) {
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     const entry = cache.value[key];
     if (!entry) return undefined;
@@ -55,7 +55,7 @@ export const useCacheStore = defineStore('cache', () => {
 
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     // responseTime이 있으면 그것을 기준으로 만료 시간 계산
     let expiresAt: number;
@@ -98,7 +98,7 @@ export const useCacheStore = defineStore('cache', () => {
   function invalidate(urlSegments: (string | number)[] | string, params?: Record<string, any>) {
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     delete cache.value[key];
   }
@@ -107,7 +107,7 @@ export const useCacheStore = defineStore('cache', () => {
   function remove(urlSegments: (string | number)[] | string, params?: Record<string, any>) {
     const pattern = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     Object.keys(cache.value).forEach((key) => {
       if (key.startsWith(pattern)) {
@@ -120,7 +120,7 @@ export const useCacheStore = defineStore('cache', () => {
   function touch(urlSegments: (string | number)[] | string, ttlMinutes: number, params?: Record<string, any>) {
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     const entry = cache.value[key];
     if (entry && ttlMinutes > 0) {
@@ -132,7 +132,7 @@ export const useCacheStore = defineStore('cache', () => {
   function replace(urlSegments: (string | number)[] | string, response: ResponseType<any>, ttlMinutes: number, params?: Record<string, any>) {
     const key = typeof urlSegments === 'string'
       ? urlSegments
-      : makeKey('GET', buildURL(urlSegments, webConfig.apiRoute), params);
+      : makeKey('GET', buildURL(urlSegments, config.api.route), params);
 
     // 기존 캐시가 있고 아직 만료되지 않았으면 덮어쓰지 않음
     const existingEntry = cache.value[key];

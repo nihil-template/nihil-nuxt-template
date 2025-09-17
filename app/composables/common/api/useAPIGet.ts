@@ -1,6 +1,6 @@
 // ~/composables/useGet.ts
-import { webConfig } from '@repo/config/web.config';
-import type { ResponseType } from '@repo/drizzle';
+import { config } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
 import { defu } from 'defu';
 import { DateTime } from 'luxon';
 import type { UseFetchOptions } from 'nuxt/app';
@@ -45,7 +45,7 @@ export function useAPIGet<TData = unknown>(
     params,
     ttl = 0,
     force = false,
-    baseURL = webConfig.apiRoute,
+    baseURL = config.api.route,
     cacheKey,
     success,
     error,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createUserSchema } from '@repo/drizzle/schema';
+import { createUserSchema } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 

@@ -1,4 +1,4 @@
-import type { ForgotPasswordType } from '@repo/drizzle';
+import type { ForgotPasswordType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { getToastStyle } from '~/libs/getToastStyle';

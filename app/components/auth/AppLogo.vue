@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { webConfig } from '@repo/config/web.config';
+import { config } from '@/config/config';
 </script>
 
 <template>
@@ -12,10 +12,10 @@ import { webConfig } from '@repo/config/web.config';
 
     <div class='space-y-1'>
       <h1 class='text-h5 font-bold text-foreground leading-tight'>
-        {{ webConfig.title || '프로젝트명' }}
+        {{ config.site.title || '프로젝트명' }}
       </h1>
       <p class='text-sm text-muted-foreground leading-tight'>
-        {{ webConfig.description || '프로젝트 설명' }}
+        {{ config.site.description || '프로젝트 설명' }}
       </p>
     </div>
   </NuxtLink>

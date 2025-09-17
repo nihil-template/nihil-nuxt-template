@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { createUserSchema, type CreateUserType } from '@repo/drizzle';
 import { toTypedSchema } from '@vee-validate/zod';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useForm } from 'vee-validate';
 
 import { cn } from '~/libs/cn';
+
+import { createUserSchema, type CreateUserType } from '@/schemas/user.schema';
 
 interface Props
   extends /* @vue-ignore */ VariantProps<typeof cssVariants> {
@@ -19,14 +20,14 @@ const cssVariants = cva(
     variants: {},
     defaultVariants: {},
     compoundVariants: [],
-  }
+  },
 );
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
 });
 
-const { mutate: adminSignUp, pending: isPending, } = useAdminSignUp();
+const { mutate: adminSignUp, pending: isPending } = useAdminSignUp();
 
 const form = useForm({
   validationSchema: toTypedSchema(createUserSchema),

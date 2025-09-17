@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { webConfig } from '@repo/config/web.config';
 import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query';
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
+
+import { config as siteConfig } from '@/config/config';
 
 // 런타임 설정 가져오기
 const config = useRuntimeConfig();
@@ -24,39 +25,39 @@ const queryClient = new QueryClient({
 
 // Vue Query 플러그인 등록
 const nuxtApp = useNuxtApp();
-nuxtApp.vueApp.use(VueQueryPlugin, { queryClient, });
+nuxtApp.vueApp.use(VueQueryPlugin, { queryClient });
 
 // 기본 앱 레이아웃
 useHead({
-  titleTemplate: (title) => title
-    ? `${title} - ${webConfig.title}`
-    : webConfig.title,
-  title: webConfig.title,
+  titleTemplate: title => title
+    ? `${title} - ${siteConfig.site.title}`
+    : siteConfig.site.title,
+  title: siteConfig.site.title,
   meta: [
-    { name: 'description', content: webConfig.description, },
-    { name: 'keywords', content: webConfig.keywords, },
-    { name: 'author', content: webConfig.author.name, },
-    { name: 'generator', content: 'Jetbrains Webstorm', },
-    { name: 'google-site-verification', content: webConfig.googleVerfi, },
-    { name: 'version', content: webConfig.version, },
+    { name: 'description', content: siteConfig.site.description },
+    { name: 'keywords', content: siteConfig.site.keywords },
+    { name: 'author', content: siteConfig.author.name },
+    { name: 'generator', content: 'Jetbrains Webstorm' },
+    { name: 'google-site-verification', content: siteConfig.google.verification },
+    { name: 'version', content: siteConfig.site.version },
     // Open Graph
-    { property: 'og:title', content: 'home', },
-    { property: 'og:description', content: webConfig.description, },
-    { property: 'og:locale', content: 'ko_KR', },
-    { property: 'og:type', content: webConfig.type, },
-    { property: 'og:site_name', content: webConfig.title, },
-    { property: 'og:url', content: webConfig.url, },
-    { property: 'og:image', content: `${webConfig.url}/opengraph-image.png`, },
-    { property: 'og:image:width', content: '1920', },
-    { property: 'og:image:height', content: '1080', },
-    { property: 'og:image:alt', content: webConfig.cover.alt, },
+    { property: 'og:title', content: 'home' },
+    { property: 'og:description', content: siteConfig.site.description },
+    { property: 'og:locale', content: 'ko_KR' },
+    { property: 'og:type', content: siteConfig.site.type },
+    { property: 'og:site_name', content: siteConfig.site.title },
+    { property: 'og:url', content: siteConfig.site.url },
+    { property: 'og:image', content: `${siteConfig.site.url}/opengraph-image.png` },
+    { property: 'og:image:width', content: '1920' },
+    { property: 'og:image:height', content: '1080' },
+    { property: 'og:image:alt', content: siteConfig.images.cover.alt },
     // Twitter
-    { name: 'twitter:image', content: `${webConfig.url}/twitter-image.png`, },
-    { name: 'twitter:image:width', content: '1920', },
-    { name: 'twitter:image:height', content: '1080', },
-    { name: 'twitter:image:alt', content: 'twitter site image', },
+    { name: 'twitter:image', content: `${siteConfig.site.url}/twitter-image.png` },
+    { name: 'twitter:image:width', content: '1920' },
+    { name: 'twitter:image:height', content: '1080' },
+    { name: 'twitter:image:alt', content: 'twitter site image' },
     // Canonical
-    { name: 'canonical', content: webConfig.url, },
+    { name: 'canonical', content: siteConfig.site.url },
   ],
   htmlAttrs: {
     lang: 'ko',
@@ -66,24 +67,24 @@ useHead({
 // Canonical link 설정
 useHead({
   link: [
-    { rel: 'canonical', href: webConfig.url, },
+    { rel: 'canonical', href: siteConfig.site.url },
   ],
 });
 
 // Google Analytics 스크립트
-if (webConfig.googleAdSrc) {
+if (siteConfig.google.adSrc) {
   useHead({
     script: [
-      { src: webConfig.googleAdSrc, async: true, crossorigin: 'anonymous', },
+      { src: siteConfig.google.adSrc, async: true, crossorigin: 'anonymous' },
     ],
   });
 }
 
-if (webConfig.googleAnalyticsId) {
+if (siteConfig.google.analyticsId) {
   useHead({
     script: [
       {
-        src: `https://www.googletagmanager.com/gtag/js?id=${webConfig.googleAnalyticsId}`,
+        src: `https://www.googletagmanager.com/gtag/js?id=${siteConfig.google.analyticsId}`,
         async: true,
       },
       {
@@ -91,7 +92,7 @@ if (webConfig.googleAnalyticsId) {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${webConfig.googleAnalyticsId}');
+          gtag('config', '${siteConfig.google.analyticsId}');
         `,
       },
     ],

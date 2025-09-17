@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { searchUserSchema, type SearchUserType } from '@repo/drizzle';
+import { searchUserSchema, type SearchUserType } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 

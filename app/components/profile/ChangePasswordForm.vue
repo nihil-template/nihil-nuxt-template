@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { changePasswordSchema, type ChangePasswordType } from '@repo/drizzle/schema';
+import { changePasswordSchema, type ChangePasswordType } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useForm } from 'vee-validate';

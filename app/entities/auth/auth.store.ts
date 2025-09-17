@@ -1,4 +1,5 @@
-import type { UserInfoType, ResponseType } from '@repo/drizzle';
+import type { UserInfoType } from '@/schemas/user.schema';
+import type { ResponseType } from '@/schemas/response.schema';
 
 import { useCacheStore } from '~/entities/common/cache.store';
 

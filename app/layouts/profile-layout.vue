@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from 'class-variance-authority';
-
-import { Button } from '~/components/common/ui/button';
-import { Card, CardContent, CardHeader } from '~/components/common/ui/card';
-import { cn } from '~/libs/utils';
+import { cn } from '~/libs/cn';
 
 interface Props extends /* @vue-ignore */ VariantProps<typeof cssVariants> {
   class?: string;
@@ -22,7 +19,7 @@ const cssVariants = cva([
 });
 
 // 세션 상태 확인 (자동 임포트)
-const { session, pending: isPending, } = useGetSession();
+const { session, pending: isPending } = useGetSession();
 </script>
 
 <template>
@@ -33,15 +30,15 @@ const { session, pending: isPending, } = useGetSession();
   >
     <div class='container mx-auto px-4 py-8'>
       <div class='flex justify-center'>
-        <Card class='w-full max-w-2xl'>
-          <CardContent class='p-6'>
+        <div class='w-full max-w-2xl bg-white rounded-lg shadow-sm border'>
+          <div class='p-6'>
             <div class='animate-pulse space-y-4'>
-              <div class='h-4 bg-muted rounded w-1/4' />
-              <div class='h-4 bg-muted rounded w-1/2' />
-              <div class='h-4 bg-muted rounded w-3/4' />
+              <div class='h-4 bg-gray-200 rounded w-1/4' />
+              <div class='h-4 bg-gray-200 rounded w-1/2' />
+              <div class='h-4 bg-gray-200 rounded w-3/4' />
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,23 +50,24 @@ const { session, pending: isPending, } = useGetSession();
   >
     <div class='container mx-auto px-4 py-8'>
       <div class='flex justify-center'>
-        <Card class='w-full max-w-md'>
-          <CardHeader>
+        <div class='w-full max-w-md bg-white rounded-lg shadow-sm border'>
+          <div class='p-6 border-b'>
             <h1 class='text-xl font-semibold text-center'>
               접근 제한
             </h1>
-          </CardHeader>
-          <CardContent class='text-center space-y-4'>
-            <p class='text-muted-foreground'>
+          </div>
+          <div class='p-6 text-center space-y-4'>
+            <p class='text-gray-600'>
               이 페이지에 접근하려면 로그인이 필요합니다.
             </p>
-            <Button as-child>
-              <NuxtLink to='/auth/signin'>
-                로그인하기
-              </NuxtLink>
-            </Button>
-          </CardContent>
-        </Card>
+            <NuxtLink
+              to='/auth/signin'
+              class='inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90'
+            >
+              로그인하기
+            </NuxtLink>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -81,27 +79,24 @@ const { session, pending: isPending, } = useGetSession();
   >
     <div class='container mx-auto px-4 py-8'>
       <div class='flex justify-center'>
-        <Card class='w-full max-w-2xl'>
-          <CardHeader>
+        <div class='w-full max-w-2xl bg-white rounded-lg shadow-sm border'>
+          <div class='p-6 border-b'>
             <div class='flex items-center justify-between'>
               <h1 class='text-xl font-semibold'>
                 마이페이지
               </h1>
-              <Button
-                variant='outline'
-                size='sm'
-                as-child
+              <NuxtLink
+                to='/'
+                class='inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50'
               >
-                <NuxtLink to='/'>
-                  홈으로
-                </NuxtLink>
-              </Button>
+                홈으로
+              </NuxtLink>
             </div>
-          </CardHeader>
-          <CardContent class='p-6'>
+          </div>
+          <div class='p-6'>
             <slot />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   </div>

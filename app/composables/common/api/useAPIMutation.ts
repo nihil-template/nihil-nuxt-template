@@ -1,5 +1,5 @@
-import { webConfig } from '@repo/config/web.config';
-import type { ResponseType } from '@repo/drizzle';
+import { config } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
 import { ref, computed } from 'vue';
 
 // useCacheStore는 createCacheUtils에서 사용됨
@@ -30,7 +30,7 @@ type MutationOptions<TBody, TData> = {
 };
 
 export function useAPIMutation<TBody = unknown, TData = unknown>(opts: MutationOptions<TBody, TData>) {
-  const { url: urlSegments, params, method, baseURL = webConfig.apiRoute, headers, freshTTL, success, error, } = opts;
+  const { url: urlSegments, params, method, baseURL = config.api.route, headers, freshTTL, success, error, } = opts;
   const pending = ref(false);
   const response = ref<ResponseType<TData> | null>(null);
   const isError = computed(() => {

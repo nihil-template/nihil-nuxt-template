@@ -3,9 +3,10 @@ import type { VariantProps } from 'class-variance-authority';
 import { Field } from 'vee-validate';
 import { ref, computed } from 'vue';
 
-import { Button } from '~/components/common/ui/button';
-import { FormControl, FormItem, FormLabel, FormMessage } from '~/components/common/ui/form';
-import { Input } from '~/components/common/ui/input';
+// TODO: PrimeVue 컴포넌트로 교체 필요
+// import { Button } from '~/components/common/ui/button';
+// import { FormControl, FormItem, FormLabel, FormMessage } from '~/components/common/ui/form';
+// import { Input } from '~/components/common/ui/input';
 import { cn } from '~/libs/cn';
 
 import { fieldContainerVariants, inputVariants, itemVariants, labelVariants } from './form-input.cva';

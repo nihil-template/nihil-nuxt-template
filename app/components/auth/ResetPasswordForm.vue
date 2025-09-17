@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { resetPasswordSchema } from '@repo/drizzle/schema';
+import { resetPasswordSchema } from '@/schemas/user.schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 

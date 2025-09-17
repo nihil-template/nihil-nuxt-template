@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { webConfig } from '@repo/config/web.config';
+import { config } from '@/config/config';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '~/libs/cn';
@@ -32,7 +32,7 @@ const isDarkMode = computed(() => colorMode.value === 'dark');
     v-bind='$attrs'
   >
     <img
-      :src='isDarkMode ? webConfig.darkLogo : webConfig.logo'
+      :src='isDarkMode ? config.images.darkLogo : config.images.logo'
       alt='nihilapps logo'
       width='50'
       height='50'
