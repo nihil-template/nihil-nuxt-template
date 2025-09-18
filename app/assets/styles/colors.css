@@ -276,4 +276,31 @@
   --color-black-900: oklch(0.22 0.001 0);
   --color-black-950: oklch(0.15 0.001 0);
   --color-black-base: #333333;
+
+  /* PrimeVue Primary Colors (Green theme) */
+  --color-p-primary-50: oklch(0.982 0.021 166.113);
+  --color-p-primary-100: oklch(0.95 0.052 163.051);
+  --color-p-primary-200: oklch(0.905 0.093 164.15);
+  --color-p-primary-300: oklch(0.845 0.143 164.978);
+  --color-p-primary-400: oklch(0.765 0.177 163.223);
+  --color-p-primary-500: oklch(0.696 0.17 162.48);
+  --color-p-primary-600: oklch(0.596 0.145 163.225);
+  --color-p-primary-700: oklch(0.508 0.118 165.612);
+  --color-p-primary-800: oklch(0.432 0.095 166.913);
+  --color-p-primary-900: oklch(0.378 0.077 168.94);
+  --color-p-primary-950: oklch(0.262 0.051 172.552);
+
+  /* PrimeVue Surface Colors (Neutral gray theme) */
+  --color-p-surface-0: oklch(1 0 0);
+  --color-p-surface-50: oklch(0.985 0.002 247.839);
+  --color-p-surface-100: oklch(0.967 0.003 264.542);
+  --color-p-surface-200: oklch(0.928 0.006 264.531);
+  --color-p-surface-300: oklch(0.872 0.01 258.338);
+  --color-p-surface-400: oklch(0.707 0.022 261.325);
+  --color-p-surface-500: oklch(0.551 0.027 264.364);
+  --color-p-surface-600: oklch(0.446 0.03 256.802);
+  --color-p-surface-700: oklch(0.373 0.034 259.733);
+  --color-p-surface-800: oklch(0.278 0.033 256.848);
+  --color-p-surface-900: oklch(0.21 0.034 264.665);
+  --color-p-surface-950: oklch(0.13 0.028 261.692);
 }

@@ -1,11 +1,9 @@
 // ~/composables/common/api/utils.ts
-import type { ResponseType } from '@/schemas/response.schema';
 import type { MaybeRefOrGetter } from 'vue';
 
 import { useCacheStore } from '~/entities/common/cache.store';
 
-/** 내부 캐시 엔트리 */
-export type CacheEntry<T> = { expiresAt: number; createdAt: number; responseTime: string; value: ResponseType<T> };
+import type { ResponseType } from '@/schemas/response.schema';
 
 /** 쿼리 스트링 생성(키 정렬) */
 export function toQuery(params?: Record<string, string | number | boolean | null | undefined>) {
@@ -139,7 +137,6 @@ export function readFresh<T = unknown>(keyOrSegments: string | (string | number)
 }
 
 export function setIfStale<T = unknown>(keyOrSegments: string | (string | number)[], value: ResponseType<T>, ttlMinutes: number, params?: Record<string, any>) {
-  const cacheStore = useCacheStore();
   const key = typeof keyOrSegments === 'string'
     ? keyOrSegments
     : makeKey('GET', buildURL(keyOrSegments, ''), params);

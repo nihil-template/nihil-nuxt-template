@@ -1,6 +1,6 @@
-import type { UserInfoType } from '@/schemas/user.schema';
-
 import { useAuthStore } from '~/entities/auth/auth.store';
+
+import type { UserInfoType } from '@/schemas/user.schema';
 
 export function useRefreshToken() {
   const authStore = useAuthStore();

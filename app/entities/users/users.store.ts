@@ -1,8 +1,8 @@
-import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
-import type { ListType, ResponseType } from '@/schemas/response.schema';
-
 import { useAuthStore } from '~/entities/auth/auth.store';
 import { useCacheStore } from '~/entities/common/cache.store';
+
+import type { ListType, ResponseType } from '@/schemas/response.schema';
+import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
 
 export const useUsersStore = defineStore('users', () => {
   const cacheStore = useCacheStore();

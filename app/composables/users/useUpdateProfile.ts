@@ -1,8 +1,9 @@
-import type { UpdateUserType, UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { useUsersStore } from '~/entities/users/users.store';
 import { getToastStyle } from '~/libs/getToastStyle';
+
+import type { UpdateUserType, UserInfoType } from '@/schemas/user.schema';
 
 export function useUpdateProfile() {
   const usersStore = useUsersStore();

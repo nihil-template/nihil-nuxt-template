@@ -1,8 +1,9 @@
-import type { ChangePasswordType, UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
 import { getToastStyle } from '~/libs/getToastStyle';
+
+import type { ChangePasswordType, UserInfoType } from '@/schemas/user.schema';
 
 export function useChangePassword() {
   const authStore = useAuthStore();

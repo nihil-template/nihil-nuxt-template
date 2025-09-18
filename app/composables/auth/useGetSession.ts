@@ -1,9 +1,10 @@
-import type { UserInfoType } from '@/schemas/user.schema';
 import { DateTime } from 'luxon';
 import { storeToRefs } from 'pinia';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
 import { useCacheStore } from '~/entities/common/cache.store';
+
+import type { UserInfoType } from '@/schemas/user.schema';
 
 /**
  * @description 세션 정보를 가져오고 관리하는 컴포저블 훅

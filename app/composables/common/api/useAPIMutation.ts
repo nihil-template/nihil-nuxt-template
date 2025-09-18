@@ -1,11 +1,12 @@
-import { config } from '@/config/config';
-import type { ResponseType } from '@/schemas/response.schema';
 import { ref, computed } from 'vue';
 
 // useCacheStore는 createCacheUtils에서 사용됨
 
 import type { CacheUtils } from './utils';
 import { buildURL, createCacheUtils } from './utils';
+
+import { config } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
 
 type Method = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

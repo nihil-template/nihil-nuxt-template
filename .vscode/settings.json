@@ -1,0 +1,44 @@
+{
+  // Vue 파일에서 일반 HTML 태그와 컴포넌트의 일관된 구문 강조를 위한 설정
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "force-expand-multiline"
+    }
+  },
+
+  // Volar 설정 (Vue 3 프로젝트에서 권장)
+  "editor.semanticHighlighting.enabled": true,
+
+  // 일반 HTML 태그의 셀프클로징 슬래시를 Vue 컴포넌트와 맞추는 설정
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "punctuation.definition.tag.self-closing.html, meta.tag.inline.any.html punctuation.definition.tag.end.html",
+        "settings": {
+          "foreground": "#89ddff"
+        }
+      },
+      {
+        "scope": "meta.tag.void.html punctuation.definition.tag.end.html",
+        "settings": {
+          "foreground": "#89ddff"
+        }
+      },
+      {
+        "scope": "punctuation.separator.key-value.html, punctuation.definition.string.begin.html, punctuation.definition.string.end.html",
+        "settings": {
+          "foreground": "#89ddff"
+        }
+      }
+    ]
+  },
+
+  // Vue 파일 형식 설정
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  }
+}

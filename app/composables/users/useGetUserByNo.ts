@@ -1,8 +1,9 @@
-import type { UserInfoType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { useUsersStore } from '~/entities/users/users.store';
 import { getToastStyle } from '~/libs/getToastStyle';
+
+import type { UserInfoType } from '@/schemas/user.schema';
 
 export function useGetUserByNo(userNo: number) {
   const usersStore = useUsersStore();

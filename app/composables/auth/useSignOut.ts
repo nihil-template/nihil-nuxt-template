@@ -1,7 +1,7 @@
 import { toast } from 'vue-sonner';
 
-import { useCacheStore } from '~/entities/common/cache.store';
 import { useAuthStore } from '~/entities/auth/auth.store';
+import { useCacheStore } from '~/entities/common/cache.store';
 import { getToastStyle } from '~/libs/getToastStyle';
 
 export function useSignOut() {

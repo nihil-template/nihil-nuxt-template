@@ -1,3 +1,4 @@
+import Lara from '@primevue/themes/lara';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -11,12 +12,36 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxt/ui',
     '@nuxt/image',
     '@nuxt/scripts',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
+    '@primevue/nuxt-module',
   ],
+
+  // PrimeVue 설정 (Lara 테마 + TailwindCSS)
+  primevue: {
+    options: {
+      theme: {
+        preset: Lara,
+        options: {
+          prefix: 'p',
+          darkModeSelector: '.dark',
+          cssLayer: false,
+        },
+      },
+      ripple: true,
+      ptOptions: {
+        mergeSections: true,
+        mergeProps: true,
+      },
+    },
+    autoImport: true,
+    components: {
+      include: '*',
+      exclude: [ 'Chart', 'Editor', ],
+    },
+  },
 
   css: [ '~/assets/styles/tailwind.css', ],
 
@@ -59,7 +84,7 @@ export default defineNuxtConfig({
   },
 
   build: {
-    transpile: [ '@vue/devtools-api', ],
+    transpile: [ '@vue/devtools-api', 'primevue', ],
   },
 
   vite: {
@@ -69,6 +94,9 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+    ssr: {
+      noExternal: [ 'primevue', ],
+    },
   },
 
 });

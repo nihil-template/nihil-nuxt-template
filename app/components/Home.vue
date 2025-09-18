@@ -17,7 +17,7 @@ const cssVariants = cva(
     variants: {},
     defaultVariants: {},
     compoundVariants: [],
-  }
+  },
 );
 </script>
 
@@ -28,5 +28,5 @@ const cssVariants = cva(
 </template>
 
 <style scoped>
-/* NotShow 컴포넌트 스타일 */
+/*  */
 </style>

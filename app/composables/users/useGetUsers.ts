@@ -1,9 +1,10 @@
-import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
-import type { ListType } from '@/schemas/response.schema';
 import { toast } from 'vue-sonner';
 
 import { useUsersStore } from '~/entities/users/users.store';
 import { getToastStyle } from '~/libs/getToastStyle';
+
+import type { ListType } from '@/schemas/response.schema';
+import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
 
 export function useGetUsers(params?: SearchUserType) {
   const usersStore = useUsersStore();

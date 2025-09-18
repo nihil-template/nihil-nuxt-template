@@ -114,12 +114,14 @@ if (siteConfig.google.analyticsId) {
       />
     </ClientOnly>
 
-    <!-- 전역 토스트 -->
+    <!-- 전역 토스트 - 테스트용으로 주석 처리 -->
+    <!--
     <ClientOnly>
       <Sonner
         position='top-center'
         :rich-colors='true'
       />
     </ClientOnly>
+    -->
   </div>
 </template>

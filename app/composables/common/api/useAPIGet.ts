@@ -1,15 +1,15 @@
 // ~/composables/useGet.ts
-import { config } from '@/config/config';
-import type { ResponseType } from '@/schemas/response.schema';
 import { defu } from 'defu';
-import { DateTime } from 'luxon';
 import type { UseFetchOptions } from 'nuxt/app';
-import { computed, shallowRef, type MaybeRefOrGetter } from 'vue';
+import { computed, nextTick, shallowRef, type MaybeRefOrGetter } from 'vue';
 
 import { useCacheStore } from '~/entities/common/cache.store';
 
 import type { CacheUtils } from './utils';
 import { toQuery, buildURL, makeKey, resolveOptions, createCacheUtils, readFresh, setIfStale } from './utils';
+
+import { config } from '@/config/config';
+import type { ResponseType } from '@/schemas/response.schema';
 
 /** 추가 옵션 */
 type ExtraOptions<TData> = {
@@ -64,12 +64,6 @@ export function useAPIGet<TData = unknown>(
 
   // 캐시 유틸리티 생성 (Mutation과 동일한 구조)
   const utils = createCacheUtils(baseURL, ttl);
-
-  /** 캐시 조회 */
-  function readCache(): ResponseType<TData> | undefined {
-    // 스토어 캐시에서 조회
-    return cacheStore.get(key);
-  }
 
   const merged = defu<UseFetchOptions<ResponseType<TData>>, UseFetchOptions<ResponseType<TData>>[]>(
     {
@@ -132,37 +126,6 @@ export function useAPIGet<TData = unknown>(
       ? res.data
       : null;
   });
-
-  /** 캐시 저장 (성공만 캐싱) */
-  function writeCache(val: ResponseType<TData>) {
-    if (!ttl || ttl <= 0) return;
-
-    // responseTime 기반으로 캐시 만료 체크
-    if (val.responseTime) {
-      const responseDateTime = DateTime.fromISO(val.responseTime);
-      if (responseDateTime.isValid) {
-        const now = DateTime.now().toMillis();
-
-        // 기존 캐시가 있고 아직 만료되지 않았으면 덮어쓰지 않음
-        const existingEntry = cacheStore.getEntry(key);
-        if (existingEntry && now < existingEntry.expiresAt) {
-          console.log('🔄 [Cache] 기존 캐시가 유효하므로 덮어쓰지 않음:', key);
-          return;
-        }
-      }
-    }
-    else {
-      // responseTime이 없으면 기존 로직 사용
-      const existingEntry = cacheStore.getEntry(key);
-      if (existingEntry && Date.now() < existingEntry.expiresAt) {
-        console.log('🔄 [Cache] 기존 캐시가 유효하므로 덮어쓰지 않음:', key);
-        return;
-      }
-    }
-
-    // 스토어 캐시에 저장
-    cacheStore.set(key, val, ttl);
-  }
 
   /** 캐시 무효화 */
   function invalidate() {

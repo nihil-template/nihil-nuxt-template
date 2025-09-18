@@ -1,11 +1,12 @@
 <script setup lang="ts">
-// 기본 레이아웃 - common 그룹에만 적용
+// 기본 레이아웃 - 테스트용 간단한 레이아웃
 </script>
 
 <template>
-  <div class='min-h-dvh-100 bg-background text-foreground flex flex-col'>
-    <CommonLayout>
-      <slot />
-    </CommonLayout>
+  <div class='min-h-screen bg-background text-foreground'>
+    <slot />
   </div>
+
+  <div />
+  <NuxtLink />
 </template>

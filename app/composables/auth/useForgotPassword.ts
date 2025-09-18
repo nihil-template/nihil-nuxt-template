@@ -1,7 +1,8 @@
-import type { ForgotPasswordType } from '@/schemas/user.schema';
 import { toast } from 'vue-sonner';
 
 import { getToastStyle } from '~/libs/getToastStyle';
+
+import type { ForgotPasswordType } from '@/schemas/user.schema';
 
 export function useForgotPassword() {
   const isEmailSent = ref(false);
