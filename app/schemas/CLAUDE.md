@@ -1,6 +1,13 @@
-# CLAUDE.md
+# CLAUDE.md - 스키마
 
-This file provides guidance to Claude Code (claude.ai/code) when working with schemas in this repository.
+이 파일은 Claude Code (claude.ai/code)가 이 저장소의 스키마 작업 시 제공되는 가이드라인입니다.
+
+## 🚨 템플릿 프로젝트 주의사항
+
+이 프로젝트는 **개발 템플릿**입니다. 스키마들은 예시용으로 제공되며, 실제 프로젝트에서는:
+- 실제 비즈니스 요구사항에 맞게 스키마 수정 필요
+- 불필요한 예시 스키마는 제거
+- 프로젝트에 맞는 새로운 스키마 추가
 
 ## 스키마 작성 규칙
 
@@ -168,3 +175,10 @@ type ResponseType<TData = any> = z.infer<ReturnType<typeof responseSchema<TData>
 - 스키마는 VeeValidate와 함께 사용됨 (`@vee-validate/zod`)
 - 에러 메시지의 `path` 속성을 통해 특정 필드에 에러 표시
 - 복합 검증 시 적절한 필드에 에러가 표시되도록 `path` 설정 필수
+
+### 템플릿에서 실제 프로젝트로 전환 시
+
+1. **예시 스키마 검토**: `user.schema.ts`, `response.schema.ts` 등이 실제 요구사항에 맞는지 확인
+2. **불필요한 스키마 제거**: 사용하지 않는 예시 스키마는 삭제
+3. **비즈니스 로직 반영**: 실제 프로젝트의 비즈니스 규칙에 맞게 검증 로직 수정
+4. **API 응답 구조 매칭**: 백엔드 API 응답 구조에 맞게 스키마 조정
