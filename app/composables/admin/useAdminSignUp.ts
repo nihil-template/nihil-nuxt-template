@@ -1,19 +1,22 @@
-import { toast } from 'vue-sonner';
-
-import { getToastStyle } from '~/libs/getToastStyle';
+import { useToast } from 'primevue/usetoast';
 
 import type { CreateUserType, UserInfoType } from '@/schemas/user.schema';
 
+type AdminSignUpBodyType = Omit<CreateUserType, 'passwordConfirm'>;
+
 export function useAdminSignUp() {
+  const toast = useToast();
   const router = useRouter();
 
-  const response = usePost<CreateUserType, UserInfoType>({
+  const response = usePost<AdminSignUpBodyType, UserInfoType>({
     url: [ 'admin', 'signup', ],
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       // 관리자 계정 생성 후 로그인 페이지로 이동
@@ -22,8 +25,10 @@ export function useAdminSignUp() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

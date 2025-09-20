@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 // useCacheStore는 createCacheUtils에서 사용됨
 
 import type { CacheUtils } from './utils';
-import { buildURL, createCacheUtils } from './utils';
+import { buildURL, createCacheUtils, shouldRefreshToken, onAutoRefresh } from './utils';
 
 import { config } from '@/config/config';
 import type { ResponseType } from '@/schemas/response.schema';
@@ -57,8 +57,26 @@ export function useAPIMutation<TBody = unknown, TData = unknown>(opts: MutationO
       });
       response.value = res;
 
-      if (res.error === true) await error?.(res, utils);
-      else await success?.(res, utils);
+      // UNAUTHORIZED 체크 및 자동 리프레시 처리
+      if (res.error === true) {
+        if (shouldRefreshToken(res)) {
+          const refreshSuccess = await onAutoRefresh(async () => {
+            // 토큰 리프레시 성공 시 원본 요청 재시도
+            await mutate(bodyData);
+          });
+
+          // 리프레시 실패 시에만 error 콜백 호출
+          if (!refreshSuccess) {
+            await error?.(res, utils);
+          }
+        }
+        else {
+          await error?.(res, utils);
+        }
+      }
+      else {
+        await success?.(res, utils);
+      }
     }
     catch (e: any) {
       const fallback: ResponseType<TData> = {

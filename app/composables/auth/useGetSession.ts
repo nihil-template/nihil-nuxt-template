@@ -32,6 +32,8 @@ export function useGetSession() {
       }
     },
     error(res) {
+      console.log(res);
+
       if (
         res
         && typeof res === 'object'

@@ -1,8 +1,10 @@
 // ~/composables/common/api/utils.ts
 import type { MaybeRefOrGetter } from 'vue';
 
+import { useAuthStore } from '~/entities/auth/auth.store';
 import { useCacheStore } from '~/entities/common/cache.store';
 
+import { RESPONSE_CODE } from '@/code/response.code';
 import type { ResponseType } from '@/schemas/response.schema';
 
 /** 쿼리 스트링 생성(키 정렬) */
@@ -153,4 +155,45 @@ function setIfStaleInternal<T = unknown>(key: string, value: ResponseType<T>, tt
     return;
   }
   cacheStore.set(key, value, ttlMinutes);
+}
+
+/** 토큰 리프레시가 필요한지 확인 */
+export function shouldRefreshToken(response: ResponseType<any>): boolean {
+  return response.error === true && response.code === RESPONSE_CODE.UNAUTHORIZED;
+}
+
+/** 자동 토큰 리프레시 처리 */
+export async function onAutoRefresh(
+  retryCallback?: () => Promise<void>
+): Promise<boolean> {
+  console.log('🔄 [Auth] UNAUTHORIZED 감지, 토큰 리프레시 시도');
+
+  try {
+    // useRefreshToken은 auto-import되므로 직접 사용 가능
+    const { mutate, } = useRefreshToken();
+
+    // 토큰 재발급 시도
+    await mutate();
+
+    console.log('✅ [Auth] 토큰 리프레시 성공, 원본 요청 재시도');
+
+    // 원본 요청 재시도 (옵션)
+    if (retryCallback) {
+      await retryCallback();
+    }
+
+    return true;
+  }
+  catch (error) {
+    console.error('❌ [Auth] 토큰 리프레시 실패:', error);
+
+    // 리프레시 실패 시 로그아웃 처리
+    const { signout, } = useAuthStore();
+    signout();
+
+    // 로그인 페이지로 리다이렉트
+    await navigateTo('/auth/signin');
+
+    return false;
+  }
 }

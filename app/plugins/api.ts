@@ -1,5 +1,6 @@
-import { config } from '@/config/config';
 import { defineNuxtPlugin } from 'nuxt/app';
+
+import { config } from '@/config/config';
 
 export default defineNuxtPlugin(() => {
   const api = $fetch.create({

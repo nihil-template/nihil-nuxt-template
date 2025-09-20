@@ -1,21 +1,25 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 import type { WithdrawType, UserInfoType } from '@/schemas/user.schema';
 
+type WithdrawBodyType = Omit<WithdrawType, 'passwordConfirm'>;
+
 export function useWithdraw() {
+  const toast = useToast();
   const router = useRouter();
   const authStore = useAuthStore();
 
-  return useDelete<WithdrawType, UserInfoType>({
+  return useDelete<WithdrawBodyType, UserInfoType>({
     url: [ 'auth', 'withdraw', ],
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       // 탈퇴 처리 - 스토어에서 직접 처리
@@ -26,8 +30,10 @@ export function useWithdraw() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

@@ -1,10 +1,10 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
 import { useCacheStore } from '~/entities/common/cache.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 export function useSignOut() {
+  const toast = useToast();
   const router = useRouter();
   const cacheStore = useCacheStore();
   const authStore = useAuthStore();
@@ -14,8 +14,10 @@ export function useSignOut() {
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       // 캐시 스토어 클리어
@@ -29,8 +31,10 @@ export function useSignOut() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

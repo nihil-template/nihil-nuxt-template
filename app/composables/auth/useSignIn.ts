@@ -1,12 +1,12 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 import type { SignInType, UserInfoType } from '@/schemas/user.schema';
 
 export function useSignIn() {
   const router = useRouter();
+  const toast = useToast();
 
   const authStore = useAuthStore();
 
@@ -16,8 +16,10 @@ export function useSignIn() {
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       authStore.cacheSession(res, 60);
@@ -27,8 +29,10 @@ export function useSignIn() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

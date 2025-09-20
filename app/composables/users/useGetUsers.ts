@@ -1,31 +1,36 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useUsersStore } from '~/entities/users/users.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 import type { ListType } from '@/schemas/response.schema';
 import type { UserInfoType, SearchUserType } from '@/schemas/user.schema';
 
 export function useGetUsers(params?: SearchUserType) {
+  const toast = useToast();
   const usersStore = useUsersStore();
 
   const { data, ...other } = useGet<ListType<UserInfoType>>({
     url: [ 'users', ],
     params,
+    immediate: false,
     success(response) {
       console.log(response);
 
       if (response.data) {
         usersStore.cacheUsersSearch(response, params || {});
-        toast.success('사용자 목록을 성공적으로 조회했습니다.', {
-          style: getToastStyle('success'),
+        toast.add({
+          severity: 'success',
+          summary: response.message,
+          life: 3000,
         });
       }
     },
     error(response) {
       console.log(response);
-      toast.error(response?.message || '사용자 목록 조회에 실패했습니다.', {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: response.message,
+        life: 3000,
       });
     },
   });

@@ -343,11 +343,8 @@ export default [
       // 컴포넌트명 PascalCase 강제
       'vue/component-name-in-template-casing': ['error', 'PascalCase'],
 
-      // HTML 태그 닫는 괄호 위치
-      'vue/html-closing-bracket-newline': ['error', {
-        singleline: 'never',
-        multiline: 'always',
-      }],
+      // HTML 태그 닫는 괄호 위치 - 완전히 비활성화
+      'vue/html-closing-bracket-newline': 'off',
 
       // HTML 태그 닫는 괄호 공백
       'vue/html-closing-bracket-spacing': ['error', {

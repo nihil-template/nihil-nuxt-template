@@ -1,20 +1,23 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useAuthStore } from '~/entities/auth/auth.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 import type { ChangePasswordType, UserInfoType } from '@/schemas/user.schema';
+type ChangePasswordBodyType = Omit<ChangePasswordType, 'confirmPassword'>;
 
 export function useChangePassword() {
+  const toast = useToast();
   const authStore = useAuthStore();
 
-  return usePost<ChangePasswordType, UserInfoType>({
+  return usePost<ChangePasswordBodyType, UserInfoType>({
     url: [ 'auth', 'change-password', ],
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       // 비밀번호 변경 후 세션 업데이트 (서버 응답 전체 전달)
@@ -23,8 +26,10 @@ export function useChangePassword() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

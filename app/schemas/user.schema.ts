@@ -20,7 +20,7 @@ export const userInfoSchema = z.object({
     .optional(),
   emlAddr: z.email('올바른 이메일 형식을 입력해주세요.'),
   userNm: z.string()
-    .min(2, '사용자명은 2자 이상이어야 합니다.')
+    .min(1, '사용자 이름을 입력해주세요.')
     .max(30, '사용자명은 30자 이하여야 합니다.'),
   userRole: userRoleSchema,
   proflImg: z
@@ -78,13 +78,16 @@ export const userInfoSchema = z.object({
 });
 
 // 커스텀 스키마 정의
-export const createUserSchema = z.object({
-  emlAddr: userInfoSchema.shape.emlAddr,
-  userNm: userInfoSchema.shape.userNm,
-  userRole: userRoleSchema,
-  password: passwordSchema,
-  passwordConfirm: passwordSchema,
-})
+export const createUserSchema = userInfoSchema
+  .pick({
+    emlAddr: true,
+    userNm: true,
+    userRole: true,
+  })
+  .extend({
+    password: passwordSchema,
+    passwordConfirm: passwordSchema,
+  })
   .refine((data) => data.password === data.passwordConfirm, {
     error: '비밀번호가 일치하지 않습니다.',
     path: [ 'passwordConfirm', ],
@@ -124,6 +127,12 @@ export const resetPasswordSchema = z.object({
     error: '비밀번호가 일치하지 않습니다.',
     path: [ 'confirmPassword', ],
   });
+
+export const resetPasswordForbodySchema = z.object({
+  emlAddr: userInfoSchema.shape.emlAddr,
+  resetToken: z.string().min(1, '리셋 토큰을 입력해주세요.'),
+  newPassword: passwordSchema,
+});
 
 // 회원탈퇴용 스키마 (비밀번호 확인)
 export const withdrawSchema = z.object({
@@ -173,6 +182,7 @@ export type SignInType = z.infer<typeof signInSchema>;
 export type ForgotPasswordType = z.infer<typeof forgotPasswordSchema>;
 export type ChangePasswordType = z.infer<typeof changePasswordSchema>;
 export type ResetPasswordType = z.infer<typeof resetPasswordSchema>;
+export type ResetPasswordForbodyType = z.infer<typeof resetPasswordForbodySchema>;
 export type UserRoleType = z.infer<typeof userRoleSchema>;
 export type YnType = z.infer<typeof ynEnumSchema>;
 export type PartialUserInfoType = z.infer<typeof partialUserInfoSchema>;

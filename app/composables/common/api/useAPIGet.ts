@@ -6,7 +6,7 @@ import { computed, nextTick, shallowRef, type MaybeRefOrGetter } from 'vue';
 import { useCacheStore } from '~/entities/common/cache.store';
 
 import type { CacheUtils } from './utils';
-import { toQuery, buildURL, makeKey, resolveOptions, createCacheUtils, readFresh, setIfStale } from './utils';
+import { toQuery, buildURL, makeKey, resolveOptions, createCacheUtils, readFresh, setIfStale, shouldRefreshToken, onAutoRefresh } from './utils';
 
 import { config } from '@/config/config';
 import type { ResponseType } from '@/schemas/response.schema';
@@ -65,6 +65,24 @@ export function useAPIGet<TData = unknown>(
   // 캐시 유틸리티 생성 (Mutation과 동일한 구조)
   const utils = createCacheUtils(baseURL, ttl);
 
+  // 캐시된 응답 처리 공통 함수
+  const onProcessCachedResponse = async (
+    cached: ResponseType<TData>,
+    retryCallback?: () => Promise<void>
+  ) => {
+    if (cached.error === true) {
+      if (shouldRefreshToken(cached)) {
+        await onAutoRefresh(retryCallback);
+      }
+      else {
+        await error?.(cached, utils);
+      }
+    }
+    else {
+      await success?.(cached, utils);
+    }
+  };
+
   const merged = defu<UseFetchOptions<ResponseType<TData>>, UseFetchOptions<ResponseType<TData>>[]>(
     {
       method: 'GET',
@@ -105,8 +123,10 @@ export function useAPIGet<TData = unknown>(
       console.log('🔄 [Cache] 캐시에서 데이터 발견, useFetch에 설정:', cached);
       f.data.value = cached as ResponseType<TData>;
       nextTick(async () => {
-        if (cached.error === true) await error?.(cached, utils);
-        else await success?.(cached, utils);
+        await onProcessCachedResponse(cached, async () => {
+          // 토큰 리프레시 성공 시 원본 요청 재시도
+          await f.execute();
+        });
       });
     }
   }
@@ -127,14 +147,8 @@ export function useAPIGet<TData = unknown>(
       : null;
   });
 
-  /** 캐시 무효화 */
-  function invalidate() {
-    // 스토어 캐시에서 삭제
-    cacheStore.invalidate(key);
-  }
-
   /** 수동 실행 + TTL 캐시 + 콜백 디스패치 */
-  const trigger = async (newParams?: Record<string, string | number | boolean | null | undefined>) => {
+  const trigger: (newParams?: Record<string, string | number | boolean | null | undefined>) => Promise<void> = async (newParams) => {
     // 새로운 params가 제공되면 URL과 키를 업데이트
     if (newParams !== undefined) {
       const updatedParams = { ...params, ...newParams, };
@@ -150,8 +164,10 @@ export function useAPIGet<TData = unknown>(
         if (cached) {
           console.log('🔄 [Cache] 캐시에서 데이터 발견, useFetch에 설정:', cached);
           updatedFetch.data.value = cached as ResponseType<TData>;
-          if (cached.error === true) await error?.(cached, utils);
-          else await success?.(cached, utils);
+          await onProcessCachedResponse(cached, async () => {
+            // 토큰 리프레시 성공 시 원본 요청 재시도
+            await trigger(newParams);
+          });
           return;
         }
       }
@@ -176,8 +192,10 @@ export function useAPIGet<TData = unknown>(
       if (cached) {
         console.log('🔄 [Cache] 캐시에서 데이터 발견, useFetch에 설정:', cached);
         f.data.value = cached as ResponseType<TData>;
-        if (cached.error === true) await error?.(cached, utils);
-        else await success?.(cached, utils);
+        await onProcessCachedResponse(cached, async () => {
+          // 토큰 리프레시 성공 시 원본 요청 재시도
+          await trigger();
+        });
         return;
       }
     }
@@ -193,6 +211,12 @@ export function useAPIGet<TData = unknown>(
     if (res.error === true) await error?.(res, utils);
     else await success?.(res, utils);
   };
+
+  /** 캐시 무효화 */
+  function invalidate() {
+    // 스토어 캐시에서 삭제
+    cacheStore.invalidate(key);
+  }
 
   /** 에러면 throw, 성공이면 data 반환 */
   function unwrap(): TData {

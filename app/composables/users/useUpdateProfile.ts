@@ -1,11 +1,11 @@
-import { toast } from 'vue-sonner';
+import { useToast } from 'primevue/usetoast';
 
 import { useUsersStore } from '~/entities/users/users.store';
-import { getToastStyle } from '~/libs/getToastStyle';
 
 import type { UpdateUserType, UserInfoType } from '@/schemas/user.schema';
 
 export function useUpdateProfile() {
+  const toast = useToast();
   const usersStore = useUsersStore();
 
   return usePut<UpdateUserType, UserInfoType>({
@@ -13,8 +13,10 @@ export function useUpdateProfile() {
     success(res) {
       console.log(res);
 
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
 
       // 서버 응답 전체를 usersStore.updateProfile에 전달 (캐시 무효화도 내부에서 처리)
@@ -23,8 +25,10 @@ export function useUpdateProfile() {
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });

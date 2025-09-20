@@ -17,6 +17,14 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@primevue/nuxt-module',
+    [ '@vee-validate/nuxt', {
+      autoImport: true,
+      componentNames: {
+        Form: 'VeeForm',
+        Field: 'VeeField',
+        ErrorMessage: 'VeeErrorMessage',
+      },
+    }, ],
   ],
 
   // PrimeVue 설정 (Lara 테마 + TailwindCSS)
@@ -69,6 +77,9 @@ export default defineNuxtConfig({
       'composables/**',
       'composables/**/*',
       'entities/*/*.store',
+    ],
+    ignore: [
+      '**/*.md',
     ],
     global: true,
   },

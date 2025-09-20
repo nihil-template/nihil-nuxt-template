@@ -1,10 +1,9 @@
-import { toast } from 'vue-sonner';
-
-import { getToastStyle } from '~/libs/getToastStyle';
+import { useToast } from 'primevue/usetoast';
 
 import type { ForgotPasswordType } from '@/schemas/user.schema';
 
 export function useForgotPassword() {
+  const toast = useToast();
   const isEmailSent = ref(false);
 
   const mutation = usePost<ForgotPasswordType, null>({
@@ -13,15 +12,19 @@ export function useForgotPassword() {
       console.log(res);
 
       isEmailSent.value = true;
-      toast.success(res.message, {
-        style: getToastStyle('success'),
+      toast.add({
+        severity: 'success',
+        summary: res.message,
+        life: 3000,
       });
     },
     error(res) {
       console.log(res);
 
-      toast.error(res.message, {
-        style: getToastStyle('error'),
+      toast.add({
+        severity: 'error',
+        summary: res.message,
+        life: 3000,
       });
     },
   });
