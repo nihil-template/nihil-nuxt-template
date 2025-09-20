@@ -64,7 +64,7 @@ importers:
         version: 4.15.1(vue@3.5.21(typescript@5.9.2))
       '@vee-validate/zod':
         specifier: ^4.15.1
-        version: 4.15.1(vue@3.5.21(typescript@5.9.2))(zod@4.1.9)
+        version: 4.15.1(vue@3.5.21(typescript@5.9.2))(zod@4.1.10)
       '@vue/devtools-api':
         specifier: ^8.0.2
         version: 8.0.2
@@ -120,8 +120,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.21(typescript@5.9.2))
       zod:
-        specifier: ^4.1.9
-        version: 4.1.9
+        specifier: ^4.1.10
+        version: 4.1.10
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.1
@@ -5423,8 +5423,8 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@4.1.9:
-    resolution: {integrity: sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==}
+  zod@4.1.10:
+    resolution: {integrity: sha512-XuQhz4bDMHS66VWMD/ZQI+BT4DYbOYGjhV/sIlSA4vAzMuxjLT31Oa7m6Z7lEdCGDkt1VCt0x4Ro2PHonEdKFA==}
 
 snapshots:
 
@@ -7438,11 +7438,11 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@vee-validate/zod@4.15.1(vue@3.5.21(typescript@5.9.2))(zod@4.1.9)':
+  '@vee-validate/zod@4.15.1(vue@3.5.21(typescript@5.9.2))(zod@4.1.10)':
     dependencies:
       type-fest: 4.41.0
       vee-validate: 4.15.1(vue@3.5.21(typescript@5.9.2))
-      zod: 4.1.9
+      zod: 4.1.10
     transitivePeerDependencies:
       - vue
 
@@ -11266,4 +11266,4 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod@4.1.9: {}
+  zod@4.1.10: {}
